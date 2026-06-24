@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Levels of AI — A Map for Researchers</title>
+<style>
+  :root{
+    --bg:#0d1117;
+    --panel:#161b22;
+    --panel-2:#1c2330;
+    --ink:#e8edf4;
+    --muted:#9aa7b8;
+    --line:#2a3340;
+    --l1:#5eb3ff;
+    --l2:#5ed1c4;
+    --l3:#8b7dff;
+    --l4:#f7a23b;
+    --l5:#ff6b8b;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:radial-gradient(1200px 700px at 80% -10%, #1a2740 0%, var(--bg) 55%) fixed;
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:48px 24px 80px}
+  .eyebrow{
+    letter-spacing:.18em;text-transform:uppercase;font-size:12px;font-weight:700;
+    color:var(--muted);margin-bottom:14px;
+  }
+  h1{
+    font-size:clamp(28px,4.5vw,46px);line-height:1.1;margin:0 0 14px;font-weight:800;
+    background:linear-gradient(90deg,var(--l1),var(--l3) 55%,var(--l5));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .lede{color:var(--muted);font-size:17px;max-width:680px;margin:0 0 36px}
+
+  /* spectrum bar */
+  .spectrum{
+    position:relative;height:14px;border-radius:99px;margin:8px 0 6px;
+    background:linear-gradient(90deg,var(--l1),var(--l2) 27%,var(--l3) 52%,var(--l4) 76%,var(--l5));
+    box-shadow:0 0 30px rgba(120,140,255,.25);
+  }
+  .axis{display:flex;justify-content:space-between;color:var(--muted);font-size:12.5px;margin-bottom:34px}
+  .axis b{color:var(--ink)}
+
+  /* cards */
+  .grid{display:flex;flex-direction:column;gap:16px}
+  .card{
+    border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    background:linear-gradient(180deg,var(--panel),var(--panel-2));
+    transition:border-color .2s, transform .2s, box-shadow .2s;
+  }
+  .card:hover{transform:translateY(-2px)}
+  .card.open{box-shadow:0 14px 40px rgba(0,0,0,.35)}
+  .head{
+    display:grid;grid-template-columns:64px 1fr auto;gap:18px;align-items:center;
+    padding:20px 22px;cursor:pointer;user-select:none;
+  }
+  .num{
+    width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:22px;color:#0b0f15;position:relative;
+  }
+  .htext h2{margin:0;font-size:20px;font-weight:750}
+  .htext p{margin:3px 0 0;color:var(--muted);font-size:14.5px}
+  .meta{text-align:right;min-width:120px}
+  .tag{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .meter{display:flex;gap:4px;justify-content:flex-end;margin-top:7px}
+  .dot{width:9px;height:9px;border-radius:50%;background:#33404f}
+  .chev{color:var(--muted);font-size:13px;margin-top:6px;transition:transform .2s}
+  .card.open .chev{transform:rotate(180deg)}
+
+  .body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+  .body-inner{padding:4px 22px 24px 104px;border-top:1px solid transparent}
+  .card.open .body-inner{border-top-color:var(--line)}
+  .row{display:grid;grid-template-columns:130px 1fr;gap:14px;padding:11px 0;border-bottom:1px dashed #2a3340}
+  .row:last-child{border-bottom:none}
+  .row .k{color:var(--muted);font-size:13px;font-weight:600;padding-top:1px}
+  .row .v{font-size:14.5px}
+  .chips{display:flex;flex-wrap:wrap;gap:7px}
+  .chip{
+    font-size:12.5px;padding:4px 10px;border-radius:99px;border:1px solid var(--line);
+    background:#0e141d;color:var(--ink);
+  }
+  .use{color:#cdd7e4}
+
+  /* legend / footer */
+  .note{
+    margin-top:40px;padding:18px 20px;border:1px solid var(--line);border-radius:14px;
+    background:var(--panel);color:var(--muted);font-size:13.5px;
+  }
+  .note b{color:var(--ink)}
+  .hint{color:var(--muted);font-size:13px;margin:0 0 18px}
+  @media(max-width:640px){
+    .head{grid-template-columns:50px 1fr;gap:12px}
+    .meta{display:none}
+    .body-inner{padding-left:22px}
+    .row{grid-template-columns:1fr;gap:3px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">A field guide for researchers</div>
+  <h1>The Levels of AI</h1>
+  <p class="lede">From answering a question to running the work itself. The same underlying models power all of these — what changes is how much they <b>see</b>, how much they <b>do</b>, and how much you stay <b>in the loop</b>. Tap any level to expand it.</p>
+
+  <div class="spectrum"></div>
+  <div class="axis">
+    <span><b>You drive</b> · AI advises</span>
+    <span>AI acts · <b>you supervise</b></span>
+  </div>
+
+  <p class="hint">⌃ Click a card to see what it does, real examples, and where it fits research work.</p>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="note">
+    <b>How to read this:</b> the levels aren't a ranking — higher isn't "better." They're a spectrum of <b>autonomy and integration</b>. Lower levels give you tight control and are perfect for thinking and drafting; higher levels do more of the doing but need clear instructions and review. Most researchers use several at once: chat to brainstorm, an assistant while writing, and Cowork or code when there's a real task to finish. The dots on each card show roughly how much the AI acts on its own.
+  </div>
+</div>
+
+<script>
+const levels = [
+  {
+    color:"var(--l1)", autonomy:1,
+    name:"Chat", tagline:"Ask anything, get an answer in the conversation",
+    what:"A conversational model you type to and read back from. It has no access to your files, apps, or the live world unless you paste things in. Pure thinking-and-writing partner.",
+    examples:["ChatGPT","Claude.ai","Gemini","Perplexity","Microsoft Copilot Chat"],
+    research:"Brainstorm hypotheses, explain an unfamiliar method or stats concept, draft and polish prose, summarize text you paste in, rephrase for a lay audience.",
+    watch:"Works only from what you give it and its training; can be confidently wrong and may invent citations. Verify facts and references."
+  },
+  {
+    color:"var(--l2)", autonomy:2,
+    name:"Assistance", tagline:"AI embedded inside the tools you already use",
+    what:"A 'copilot' that lives inside another application and helps in context — suggesting the next sentence, line of code, or cell formula as you work. You stay in your tool; the AI rides along.",
+    examples:["GitHub Copilot","Microsoft 365 Copilot","Notion AI","Grammarly","Gemini in Google Docs/Sheets"],
+    research:"Autocomplete analysis code, draft an email or slide from a doc, clean and formula-fill a spreadsheet, suggest edits while you write a manuscript.",
+    watch:"Suggestions are local and shallow — great for the next step, not for understanding the whole project. Still your job to accept or reject each one."
+  },
+  {
+    color:"var(--l3)", autonomy:3,
+    name:"Cowork", tagline:"Works alongside you, on your files and connected apps",
+    what:"The AI gets a workspace: it can read and create files, run code in a sandbox, search the web, and use connectors to your email, calendar, Slack, or drive — then hand you finished deliverables. You assign a task and review the result, rather than steering every keystroke.",
+    examples:["Claude Cowork","ChatGPT with connectors / tasks","Gemini in Workspace (agentic)"],
+    research:"Turn a CSV into a formatted results table and figure, build a slide deck or grant section, pull and synthesize a set of papers, monitor a topic and email you a digest.",
+    watch:"Acts across your real data, so scope and permissions matter. Review outputs before they go anywhere official."
+  },
+  {
+    color:"var(--l4)", autonomy:4,
+    name:"Code", tagline:"An agent in your development environment",
+    what:"A coding-focused agent that works directly in a codebase or terminal — reading the whole project, editing many files, running tests, and iterating until something works. Built for building and automating, with you reviewing diffs.",
+    examples:["Claude Code","Cursor","GitHub Copilot agent mode","Windsurf"],
+    research:"Write and debug an analysis pipeline, refactor a lab's data scripts, automate a reproducible workflow, build a small tool or dashboard for your data.",
+    watch:"Powerful but assumes some technical fluency to direct and review. Run it on version-controlled code so changes are reversible."
+  },
+  {
+    color:"var(--l5)", autonomy:5,
+    name:"Autonomous agents", tagline:"Plans and runs multi-step work with light supervision",
+    what:"You give a goal; the agent breaks it into steps, uses tools and other agents, and executes over time — sometimes on a schedule — checking in only when needed. The furthest end of 'AI acts, you supervise.'",
+    examples:["Deep Research agents","Scheduled / background agents","Operator-style browser agents","Multi-agent orchestration"],
+    research:"Stand up a weekly literature surveillance report, run a long multi-source review unattended, automate recurring data collection and alerting.",
+    watch:"Least human-in-the-loop, so the highest need for clear guardrails, defined scope, and a check on results before you trust them."
+  }
+];
+
+const grid = document.getElementById("grid");
+levels.forEach((l,i)=>{
+  const dots = Array.from({length:5},(_,d)=>
+    `<span class="dot" style="background:${d<l.autonomy?l.color:'#33404f'}"></span>`).join("");
+  const ex = l.examples.map(e=>`<span class="chip">${e}</span>`).join("");
+  const card = document.createElement("div");
+  card.className="card";
+  card.innerHTML = `
+    <div class="head">
+      <div class="num" style="background:${l.color}">${i+1}</div>
+      <div class="htext">
+        <h2>${l.name}</h2>
+        <p>${l.tagline}</p>
+      </div>
+      <div class="meta">
+        <div class="tag">Autonomy</div>
+        <div class="meter">${dots}</div>
+        <div class="chev">▼</div>
+      </div>
+    </div>
+    <div class="body">
+      <div class="body-inner">
+        <div class="row"><div class="k">What it is</div><div class="v">${l.what}</div></div>
+        <div class="row"><div class="k">Examples</div><div class="v"><div class="chips">${ex}</div></div></div>
+        <div class="row"><div class="k">In research</div><div class="v use">${l.research}</div></div>
+        <div class="row"><div class="k">Keep in mind</div><div class="v use">${l.watch}</div></div>
+      </div>
+    </div>`;
+  const head = card.querySelector(".head");
+  const body = card.querySelector(".body");
+  head.addEventListener("click",()=>{
+    const open = card.classList.toggle("open");
+    body.style.maxHeight = open ? body.scrollHeight+"px" : "0";
+    card.style.borderColor = open ? l.color : "var(--line)";
+  });
+  grid.appendChild(card);
+});
+</script>
+</body>
+</html>
