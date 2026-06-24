@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Levels of AI for Researchers</title>
+<style>
+:root{
+  color-scheme: light;
+  --bg:#f7f8fa;
+  --card:#ffffff;
+  --ink:#1a1d24;
+  --muted:#5b6472;
+  --line:#e6e9ef;
+  --l1:#6366f1;
+  --l2:#0ea5e9;
+  --l3:#10b981;
+  --l4:#f59e0b;
+  --l5:#ef4444;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  line-height:1.5;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:980px;margin:0 auto;padding:32px 22px 64px}
+header{margin-bottom:26px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--l1)}
+h1{font-size:30px;line-height:1.15;margin:8px 0 10px;letter-spacing:-.02em}
+.sub{font-size:16px;color:var(--muted);max-width:680px;margin:0}
+
+.axis{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:14px;margin:24px 0 8px;padding:12px 16px;
+  background:linear-gradient(90deg,#eef0fb,#fdeeee);
+  border:1px solid var(--line);border-radius:12px;font-size:13px;font-weight:600;color:var(--muted);
+}
+.axis .arrow{flex:1;height:2px;background:linear-gradient(90deg,var(--l1),var(--l2),var(--l3),var(--l4),var(--l5));border-radius:2px;position:relative}
+.axis .arrow::after{content:"";position:absolute;right:-2px;top:-4px;border-left:8px solid var(--l5);border-top:5px solid transparent;border-bottom:5px solid transparent}
+
+.steps{display:flex;flex-direction:column;gap:14px;margin-top:18px}
+.step{
+  position:relative;background:var(--card);border:1px solid var(--line);
+  border-radius:16px;padding:20px 22px 20px 24px;
+  box-shadow:0 1px 2px rgba(20,25,40,.04);
+  border-left:6px solid var(--c);
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.step:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(20,25,40,.09)}
+.step .top{display:flex;align-items:flex-start;gap:16px}
+.badge{
+  flex:none;width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-size:22px;background:var(--c);color:#fff;box-shadow:0 4px 10px color-mix(in srgb,var(--c) 40%,transparent);
+}
+.titleblock{flex:1;min-width:0}
+.lvl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c)}
+.name{font-size:19px;font-weight:700;margin:1px 0 2px}
+.tag{font-size:14px;color:var(--muted)}
+.drive{
+  flex:none;font-size:11px;font-weight:700;color:var(--c);
+  background:color-mix(in srgb,var(--c) 12%,#fff);border:1px solid color-mix(in srgb,var(--c) 30%,#fff);
+  padding:5px 10px;border-radius:999px;white-space:nowrap;
+}
+.desc{margin:13px 0 0;font-size:14.5px;color:#39414e}
+.examples{margin:13px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.chip{
+  font-size:12.5px;font-weight:500;color:#3a414d;background:#f1f3f8;
+  border:1px solid var(--line);border-radius:8px;padding:5px 10px;
+}
+.chip b{color:var(--c)}
+.tools{margin-top:11px;font-size:12.5px;color:var(--muted)}
+.tools b{color:var(--ink);font-weight:600}
+
+.s1{--c:var(--l1)} .s2{--c:var(--l2)} .s3{--c:var(--l3)} .s4{--c:var(--l4)} .s5{--c:var(--l5)}
+
+footer{margin-top:30px;padding:18px 20px;background:#eef1f6;border-radius:14px;border:1px solid var(--line);font-size:13.5px;color:var(--muted)}
+footer b{color:var(--ink)}
+@media(max-width:560px){
+  .top{flex-wrap:wrap}
+  .drive{order:3}
+  h1{font-size:25px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">A field guide</div>
+    <h1>The Levels of AI for Researchers</h1>
+    <p class="sub">The same underlying models, used in five increasingly capable ways. As you climb, you hand off more of the doing — and your role shifts from typing every prompt to specifying outcomes and reviewing results.</p>
+  </header>
+
+  <div class="axis">
+    <span>You do the work</span>
+    <span class="arrow"></span>
+    <span>AI does the work</span>
+  </div>
+
+  <div class="steps">
+
+    <div class="step s1">
+      <div class="top">
+        <div class="badge">💬</div>
+        <div class="titleblock">
+          <div class="lvl">Level 1</div>
+          <div class="name">Chat</div>
+          <div class="tag">Ask &amp; draft — a conversation partner</div>
+        </div>
+        <div class="drive">You drive every turn</div>
+      </div>
+      <p class="desc">Pure back-and-forth with the model. It knows what it was trained on and answers from that. Fastest way to think out loud, but it can't see your files or the live web, so you verify the facts yourself.</p>
+      <div class="examples">
+        <span class="chip"><b>·</b> Explain a method or concept</span>
+        <span class="chip"><b>·</b> Brainstorm hypotheses</span>
+        <span class="chip"><b>·</b> Rewrite a paragraph</span>
+        <span class="chip"><b>·</b> Draft an email or abstract</span>
+      </div>
+      <div class="tools"><b>Looks like:</b> Claude.ai, ChatGPT, Gemini — a chat box.</div>
+    </div>
+
+    <div class="step s2">
+      <div class="top">
+        <div class="badge">🔎</div>
+        <div class="titleblock">
+          <div class="lvl">Level 2</div>
+          <div class="name">Assisted</div>
+          <div class="tag">Search, retrieve &amp; ground — chat with real sources</div>
+        </div>
+        <div class="drive">You direct, it fetches</div>
+      </div>
+      <p class="desc">Chat plus tools: live web search, document and dataset upload, and citations. Answers are grounded in real material you can check, instead of memory alone. The leap here is <i>evidence</i> — it works from your PDFs and current sources.</p>
+      <div class="examples">
+        <span class="chip"><b>·</b> Literature scan with citations</span>
+        <span class="chip"><b>·</b> Summarize uploaded papers</span>
+        <span class="chip"><b>·</b> Q&amp;A over a dataset or PDF</span>
+        <span class="chip"><b>·</b> Pull current guidelines</span>
+      </div>
+      <div class="tools"><b>Looks like:</b> Claude/ChatGPT with web search &amp; file upload, Perplexity, NotebookLM, Copilot in Word/Excel.</div>
+    </div>
+
+    <div class="step s3">
+      <div class="top">
+        <div class="badge">🤝</div>
+        <div class="titleblock">
+          <div class="lvl">Level 3</div>
+          <div class="name">Cowork</div>
+          <div class="tag">Do &amp; automate — an agent that takes action</div>
+        </div>
+        <div class="drive">You delegate, it executes</div>
+      </div>
+      <p class="desc">Now it acts. A desktop agent works across your files and apps, runs multi-step tasks, executes code in a sandbox, and produces finished deliverables — documents, spreadsheets, slides, analyses. You hand off a goal; it does the steps and you review the output.</p>
+      <div class="examples">
+        <span class="chip"><b>·</b> Run a stats analysis &amp; write it up</span>
+        <span class="chip"><b>·</b> Build a manuscript or grant draft</span>
+        <span class="chip"><b>·</b> Turn data into a deck or report</span>
+        <span class="chip"><b>·</b> Organize &amp; clean a folder</span>
+      </div>
+      <div class="tools"><b>Looks like:</b> Cowork, Claude with computer use, agentic assistants that touch real files and tools.</div>
+    </div>
+
+    <div class="step s4">
+      <div class="top">
+        <div class="badge">⌨️</div>
+        <div class="titleblock">
+          <div class="lvl">Level 4</div>
+          <div class="name">Code</div>
+          <div class="tag">Build &amp; scale — reproducible, repeatable work</div>
+        </div>
+        <div class="drive">You specify, it builds</div>
+      </div>
+      <p class="desc">Agentic coding in your terminal or codebase. Instead of one-off answers, it builds the <i>machinery</i>: reproducible analysis pipelines, custom scripts, and tools you can rerun on new data. This is where research becomes scalable and auditable.</p>
+      <div class="examples">
+        <span class="chip"><b>·</b> Reproducible analysis pipeline</span>
+        <span class="chip"><b>·</b> Custom data-cleaning scripts</span>
+        <span class="chip"><b>·</b> Figures generated from code</span>
+        <span class="chip"><b>·</b> A small research app or dashboard</span>
+      </div>
+      <div class="tools"><b>Looks like:</b> Claude Code, Cursor, Copilot, agentic coding in an IDE or terminal.</div>
+    </div>
+
+    <div class="step s5">
+      <div class="top">
+        <div class="badge">🛰️</div>
+        <div class="titleblock">
+          <div class="lvl">Level 5</div>
+          <div class="name">Autonomous</div>
+          <div class="tag">Orchestrate — agents that run on their own</div>
+        </div>
+        <div class="drive">You set goals, it runs</div>
+      </div>
+      <p class="desc">Custom and background agents built on the API/SDK: scheduled tasks, continuous monitoring, and multi-agent workflows that run without you in the loop each step. Highest autonomy — and the level that most demands guardrails, oversight, and validation.</p>
+      <div class="examples">
+        <span class="chip"><b>·</b> Daily literature / alert digests</span>
+        <span class="chip"><b>·</b> Scheduled data-pipeline runs</span>
+        <span class="chip"><b>·</b> Multi-agent research workflows</span>
+        <span class="chip"><b>·</b> AI embedded in your own tools</span>
+      </div>
+      <div class="tools"><b>Looks like:</b> Claude Agent SDK / API, scheduled tasks, orchestration frameworks, custom-built agents.</div>
+    </div>
+
+  </div>
+
+  <footer>
+    <b>How to read the ladder:</b> climbing isn't about a "smarter" model — it's the <b>same models given more reach and autonomy</b>. Match the level to the task: chat to think, assisted to ground in evidence, cowork to produce deliverables, code to make it reproducible, autonomous to run continuously. Higher levels save more effort but need more verification — your judgment is the constant at every rung.
+  </footer>
+</div>
+</body>
+</html>
